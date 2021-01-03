@@ -7,6 +7,6 @@ stages:
 build-code:
   stage: build
   script:
-    - git clone git@git.ucsc.edu:cse13s/winter21/ci.git
+    - git clone ${CI_REPO} ci
     - cd ci
     - python3 ci.py
