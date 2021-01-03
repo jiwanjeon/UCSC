@@ -1,0 +1,12 @@
+default:
+  image: ${TESTING_DOCKER_IMAGE}
+
+stages:
+  - build
+
+build-code:
+  stage: build
+  script:
+    - git clone git@git.ucsc.edu:cse13s/winter21/ci.git
+    - cd ci
+    - python3 ci.py
