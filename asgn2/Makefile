@@ -1,2 +1,16 @@
-all:
-	gcc mathlib.c mathlib-test.c -o mathlib-test -lm
+CC = clang
+CFLAGS = -Wall -Werror -Wextra -Wpedantic
+
+all: mathlib-test
+
+mathlib-test: mathlib-test.o mathlib.o
+	$(CC) -o mathlib-test mathlib-test.o mathlib.o -lm
+
+mathlib-test.o: mathlib-test.c
+	$(CC) -c mathlib-test.c
+
+mathlib.o: mathlib.c
+	$(CC) $(CFLAGS) -c mathlib.c
+
+clean:
+	rm -f mathlib-test *.o
