@@ -1,5 +1,5 @@
 CC = clang
-CCFLAGS = -Wall -Wextra -Wpedantic -Wshadow -std=c17
+CCFLAGS = -Wall -Werror -Wextra -Wpedantic -Wshadow -std=c17
 
 all: life
 
