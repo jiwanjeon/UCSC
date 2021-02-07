@@ -1,0 +1,189 @@
+#include "bm.h"
+#include <stdio.h>
+#include <stdlib.h>
+/**
+ * Create the bitmatrix
+ */
+BitMatrix *bm_create(uint32_t rows, uint32_t cols) {
+  BitMatrix *ptr;
+  uint8_t **mat;
+  mat = (uint8_t **)calloc(rows, sizeof(uint8_t));
+  for (int i = 0; i < rows; i++) {
+    mat[i] = (uint8_t *)calloc(cols, sizeof(uint8_t));
+  }
+  ptr = (BitMatrix *)calloc(rows * cols, sizeof(uint8_t));
+  ptr->cols = cols;
+  ptr->rows = rows;
+  ptr->mat = mat;
+  return ptr;
+}
+
+/**
+ * Delete the bitmatrix
+ */
+void bm_delete(BitMatrix **m) {
+  for (int i = 0; i < (*m)->rows; i++) {
+    free((*m)->mat[i]);
+  }
+  free((*m)->mat);
+  free(*m);
+  *m = NULL;
+}
+/**
+ *Get the rows
+ */
+uint32_t bm_rows(BitMatrix *m) { return m->rows; }
+}
+/**
+ * Get the columns
+ */
+uint32_t bm_cols(BitMatrix *m) { return m->cols; }
+/**
+ * Set the bit
+ */
+void bm_set_bit(BitMatrix *m, uint32_t r, uint32_t c) {
+  /**
+   * Clear the bit
+   */
+  void bm_clr_bit(BitMatrix * m, uint32_t r, uint32_t c) {}
+
+  /**
+   * Get the bit
+   */
+  uint8_t bm_get_bit(BitMatrix * m, uint32_t r, uint32_t c) {
+    return m->mat[r][c];
+  }
+  /**
+   * Print the bit matrix
+   */
+  void bm_print(BitMatrix * m) {
+    printf("Number Of rows:%d\n", m->rows);
+    printf("Number Of cols:%d\n", m->cols);
+    for (uint32_t i = 0; i < m->rows; i++) {
+      for (uint32_t j = 0; j < m->cols; j++) {
+        printf("%d ", m->mat[i][j]);
+      }
+      printf("\n");
+    }
+  }
+#ifndef __BITMATRIX_H__
+#define __BITMATRIX_H__
+
+#include <stdint.h>
+
+typedef struct BitMatrix {
+  uint32_t rows;
+  uint32_t cols;
+  uint8_t **mat;
+} BitMatrix;
+
+BitMatrix *bm_create(uint32_t rows, uint32_t cols);
+
+void bm_delete(BitMatrix **m);
+
+uint32_t bm_rows(BitMatrix *m);
+
+uint32_t bm_cols(BitMatrix *m);
+
+void bm_set_bit(BitMatrix *m, uint32_t r, uint32_t c);
+
+void bm_clr_bit(BitMatrix *m, uint32_t r, uint32_t c);
+
+uint8_t bm_get_bit(BitMatrix *m, uint32_t r, uint32_t c);
+
+void bm_print(BitMatrix *m);
+
+#endif#include "bm.h"
+#include "hamming.h"
+#include <stdio.h>
+#include <unistd.h>
+
+#define OPTIONS "i:o:"
+/**
+ * Main method of the Decode
+ */
+int main(int argc, char **argv) {
+  int opt = 0;
+  // Create the parity
+  BitMatrix *parity;
+  parity = bm_create(8, 4);
+  char *inputFileName = NULL;
+  char *outputFileName = NULL;
+
+  // Parse the command line option
+  while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
+    switch (opt) {
+    case 'i':
+      inputFileName = optarg;
+      break;
+    case 'o':
+      outputFileName = optarg;
+      break;
+    default:
+      printf("%s\n", "Invalid option");
+    }
+  }
+  if (NULL == inputFileName) {
+    printf("%s\n", "Input file path is required");
+  } else {
+    printf("%s\n", inputFileName);
+  }
+  if (NULL == outputFileName) {
+    printf("%s\n", "Output file path is required");
+  } else {
+    printf("%s\n", outputFileName);
+  }
+  return 0;
+}
+#include "bm.h"
+#include "hamming.h"
+#include <stdio.h>
+#include <unistd.h>
+
+#define OPTIONS "i:o:"
+/**
+ * Main method of the generator
+ */
+int main(int argc, char **argv) {
+  int opt = 0;
+  // Create the generator
+  BitMatrix *generator;
+  generator = bm_create(8, 4);
+  char *inputFileName = NULL;
+  char *outputFileName = NULL;
+
+  // Parse the command line option
+  while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
+    switch (opt) {
+    case 'i':
+      inputFileName = optarg;
+      break;
+    case 'o':
+      outputFileName = optarg;
+      break;
+    default:
+      printf("%s\n", "Invalid option");
+    }
+  }
+  if (NULL == inputFileName) {
+    printf("%s\n", "Input file path is required");
+  } else {
+    printf("%s\n", inputFileName);
+  }
+  if (NULL == outputFileName) {
+    printf("%s\n", "Output file path is required");
+  } else {
+    printf("%s\n", outputFileName);
+  }
+  return 0;
+}
+#include "hamming.h"
+
+// initialize the hamming code matrix
+ham_rc ham_init(void) { return HAM_OK; }
+// Destory the hamming code matrix
+void ham_destroy(void) {}
+// Encode the data using hamming code
+ham_rc ham_encode(uint8_t data, uint8_t *code) { return HAM_OK; }
+// Decode the data using hamming code
+ham_rc ham_decode(uint8_t code, uint8_t *data) { return HAM_OK; }
