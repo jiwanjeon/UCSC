@@ -5,22 +5,22 @@ CFLAGS = -Wall -Werror -Wextra -Wpedantic
 all: hamming
 	
 hamming: hamming.o generator.o decoder.o bm.o error.o
-	   $(CC) $(CCFLAGS) hamming.o generator.o decoder.o bm.o error.o -o hamming
+	   $(CC) $(CFLAGS) hamming.o generator.o decoder.o bm.o error.o -o hamming
 
-hamming.o:
-	   $(CC) $(CCFLAGS) -c hamming.c -o hamming.o
+hamming.o: hamming.c
+	   $(CC) $(CFLAGS) -c hamming.c
 
-generator.o:
-	   $(CC) $(CCFLAGS) -c generator.c -o generator.o
+generator.o: genertor.c
+	   $(CC) $(CFLAGS) -c generator.c 
 
-decoder.o:
-     	   $(CC) $(CCFLAGS) -c decoder.c -o decoder.o
+decoder.o: decoder.c
+     	   $(CC) $(CFLAGS) -c decoder.c
 
-bm.o:
-	   $(CC) $(CCFLAGS) -c bm.c -o bm.o
+bm.o: bm.c
+	   $(CC) $(CFLAGS) -c bm.c
 
-error.o:
-	   $(CC) $(CCFLAGS) -c error.c -o error.o
+error.o: error.c
+	   $(CC) $(CFLAGS) -c error.c 
 
 clean:
 	   rm -f hamming hamming.o generator.o decoder.o bm.o error.o

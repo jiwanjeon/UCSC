@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 typedef struct BitMatrix {
-  uint32_t rows;
-  uint32_t cols;
-  uint8_t **mat;
+    uint32_t rows;
+    uint32_t cols;
+    uint8_t **mat;
 } BitMatrix;
 
 BitMatrix *bm_create(uint32_t rows, uint32_t cols);
