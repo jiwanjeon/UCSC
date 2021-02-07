@@ -14,7 +14,7 @@ generator.o:
 	   $(CC) $(CFLAGS) -c generator.c -o generator.o
 
 decoder.o:
-     	   $(CC) $(CFLAGS) -c decoer.c -o decoder.o
+     	   $(CC) $(CFLAGS) -c decoder.c -o decoder.o
 
 bm.o:
 	   $(CC) $(CFLAGS) -c bm.c -o bm.o
@@ -26,5 +26,5 @@ clean:
 	   rm -f hamming hamming.o generator.o decoder.o bm.o error.o
 
 format:
-	   clang-format --style=file -i hamming.c generator.c decoder.c
+	   clang-format --style=file -i hamming.c generator.c decoder.c bm.c bm.h
 	
