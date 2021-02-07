@@ -27,4 +27,7 @@ clean:
 
 format:
 	   clang-format --style=file -i hamming.c generator.c decoder.c bm.c bm.h
-	
+
+	gcc bm.c hamming.c generator.c -o gen -lm
+	gcc bm.c hamming.c generator.c -o dec -lm
+	gcc error.c -o err -lm
