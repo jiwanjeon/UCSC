@@ -1,33 +1,25 @@
-CC = clang
-CFLAGS = -Wall -Werror -Wextra -Wpedantic
+CC=clang
+CFLAGS=-Wall -Wextra -Werror -Wpedantic
 
+all: gen dec err
 
-all: hamming
-	
-hamming: hamming.o generator.o decoder.o bm.o error.o
-	   $(CC) $(CFLAGS) hamming.o generator.o decoder.o bm.o error.o -o hamming
+gen: generator.c bm.o hamming.o
+	$(CC) $(CFLAGS) generator.c bm.o hamming.o -o gen
 
-hamming.o: hamming.c
-	   $(CC) $(CFLAGS) -c hamming.c
+dec: decoder.c bm.o hamming.o
+	$(CC) $(CFLAGS) decoder.c bm.o hamming.o -o dec
 
-generator.o: genertor.c
-	   $(CC) $(CFLAGS) -c generator.c 
+err: error.c bm.o hamming.o
+	$(CC) $(CFLAGS) error.c bm.o hamming.o -o err
 
-decoder.o: decoder.c
-     	   $(CC) $(CFLAGS) -c decoder.c
+hamming.o: hamming.c hamming.h
+	$(CC) $(CFLAGS) -c hamming.c -o hamming.o
 
-bm.o: bm.c
-	   $(CC) $(CFLAGS) -c bm.c
-
-error.o: error.c
-	   $(CC) $(CFLAGS) -c error.c 
+bm.o: bm.c bm.h
+	$(CC) $(CFLAGS) -c bm.c -o bm.o
 
 clean:
-	   rm -f hamming hamming.o generator.o decoder.o bm.o error.o
+	rm -f gen dec err *.o
 
 format:
-	   clang-format --style=file -i hamming.c generator.c decoder.c bm.c bm.h
-
-	gcc bm.c hamming.c generator.c -o gen -lm
-	gcc bm.c hamming.c generator.c -o dec -lm
-	gcc error.c -o err -lm
+	clang-format --style=file -i *.c *.h
